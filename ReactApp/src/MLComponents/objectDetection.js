@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
-import image from './20066.jpg';
-import image1 from './20191.jpg';
+import image2 from './Dubai_Marina_Skyline.jpg';
+import image3 from './forest.webp';
+import image4 from './sea.jpg';
+
 const ObjectDetection = () => {
   const canvasRef = useRef(null);
 
@@ -11,10 +13,11 @@ const ObjectDetection = () => {
       console.log('Custom model going to load.');
       const model = await tf.loadLayersModel('https://raw.githubusercontent.com/VarunCypherV/ObjectDetectionReactApp/main/model.json');
       console.log('Custom model loaded.');
+      console.log(model);
 
       // Load the image for prediction
       const img = new Image();
-      img.src = image1;
+      img.src = image4;
       console.log("going in baby");
       img.onload = async () => {
         // Ensure the image has the desired dimensions (256x256)
@@ -26,15 +29,18 @@ const ObjectDetection = () => {
 
         // Expand dimensions to match the model's input shape
         const inputTensor = normalizedImage.expandDims(0);
-        
+
         // Make predictions
         const predictions = await model.predict(inputTensor).data();
-        
-        // Log the predictions
-        console.log('Predictions:', predictions);
-        
-        // Here you can use the predictions to draw on the canvas or perform other actions.
-        // For drawing, you might need to set up your canvas and draw boxes based on the predictions.
+
+        // Define the class labels
+        const classLabels = ['buildings', 'forest', 'glacier', 'mountain', 'sea', 'street'];
+
+        // Find the index with the highest probability
+        const maxIndex = predictions.indexOf(Math.max(...predictions));
+
+        // Log the predicted class
+        console.log('Predicted Class:', classLabels[maxIndex]);
       };
     };
 
