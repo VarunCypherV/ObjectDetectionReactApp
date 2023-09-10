@@ -1,8 +1,9 @@
 # ObjectDetectionReactApp
 
---------
+React App : npm start
 
-The Json and weights have been put here for the browser link
+React Front End Tensorflowjs (tfjs) to load and process my model , integration with react to acheive image prediction (NOT REALTIME WEBCAM) detection #CUSTOM_MY_MODEL 
 
-------
-React Front End Under dev
+Model is with the json and weights Here (Hence Browser Loaded) 
+
+The prediction is console logged for now
